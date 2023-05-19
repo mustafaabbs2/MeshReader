@@ -1,9 +1,8 @@
 #pragma once
 
 #include <hc.h>
-#include <iostream>
 
-void render_polygon() {
+void hc_render_polygon() {
 
   HC_Open_Segment("/segment1");
   {
