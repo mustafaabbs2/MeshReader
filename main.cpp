@@ -1,7 +1,8 @@
-#include "polygon.h"
+#include "gl_polygon.h"
+//#include "hc_polygon.h"
 
 int main() {
 
-  render_polygon();
+  gl_render_polygon();
   return 0;
 }
