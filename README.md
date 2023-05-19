@@ -1,14 +1,9 @@
-# A Simple Ray Tracer
+# A Simple Mesh Reader
 ## Mustafa Bhotvawala
 
-This is meant to be a different take on [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html). The aim is to write a modular, performant application and port it to a GPU. 
-
+The application when complete should be able to read a STL file and render it in either HOOPS or OpenGL
 # Build Instructions
 Create a build/ folder and run cmake .. on it
-Run make on Linux/ Build RayTracer.sln on Windows
+Run make on Linux/ Build MeshReader.sln on Windows
 
 
-
-# Sample
-
-![Spheres](./samples/new.jpg)
