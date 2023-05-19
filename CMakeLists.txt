@@ -15,9 +15,11 @@ add_executable(MeshReader
 ${CPP_SOURCES}
 )
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CONAN_GLFW_ROOT}")
-message(${CONAN_GLFW_ROOT})
 
+set(glfw3_DIR ${CMAKE_SOURCE_DIR}/cmake)
+set(opengl_system_DIR ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(glu_DIR ${CMAKE_SOURCE_DIR}/cmake)
 
 find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
@@ -35,11 +37,9 @@ if (WIN32)
     set(CMAKE_INSTALL_RPATH "$ENV{HOOPS_3DF_PREFIX}/bin/nt_x64_vc11d")
 endif()
 
-message(${CMAKE_INSTALL_RPATH})
-
 # Link against the HOOPS/3dGS static libraries
 target_link_libraries(MeshReader
     $ENV{HOOPS_3DF_PREFIX}/Dev_Tools/hoops_3dgs/lib/nt_x64_vc11/hoops.lib
     glfw
-    GLEW::GLEW
+    ${GLEW_LIBRARIES}
 )
