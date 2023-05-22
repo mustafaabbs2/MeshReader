@@ -3,6 +3,6 @@
 
 int main() {
 
-  gl_render_polygon();
+  initContext();
   return 0;
 }

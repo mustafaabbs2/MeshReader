@@ -1,5 +1,7 @@
+#define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <stdio.h>
 
 void gl_render_polygon() {
   // Define the vertices of the triangle
@@ -25,9 +27,63 @@ void gl_render_polygon() {
   // Unbind the VAO and VBO
   glBindVertexArray(0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
 
-  // Render the polygon
-  glBindVertexArray(vao);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
-  glBindVertexArray(0);
+void errorCallback(int error, const char *description) {
+  fprintf(stderr, "GLFW Error %d: %s\n", error, description);
+}
+
+void initContext() {
+  // Initialize GLFW
+  if (!glfwInit()) {
+    fprintf(stderr, "Failed to initialize GLFW\n");
+    return;
+  }
+
+  // Set the error callback function
+  glfwSetErrorCallback(errorCallback);
+
+  // Specify OpenGL version and profile
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+  // Create a window and its OpenGL context
+  GLFWwindow *window =
+      glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
+  if (!window) {
+    fprintf(stderr, "Failed to create GLFW window\n");
+    glfwTerminate();
+    return;
+  }
+
+  // Make the window's context current
+  glfwMakeContextCurrent(window);
+
+  // Initialize GLEW
+  GLenum glewError = glewInit();
+  if (glewError != GLEW_OK) {
+    fprintf(stderr, "Failed to initialize GLEW: %s\n",
+            glewGetErrorString(glewError));
+    glfwTerminate();
+    return;
+  }
+
+
+
+  while (!glfwWindowShouldClose(window)) {
+    // Clear the screen
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Render your scene here
+    gl_render_polygon();
+
+    // Swap buffers and poll events
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  // Cleanup and terminate GLFW
+  glfwTerminate();
+
 }
